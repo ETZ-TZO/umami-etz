@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
-import { getEventMetrics } from 'lib/queries';
-import { ok, badRequest, methodNotAllowed, unauthorized } from 'lib/response';
+import { getAllEvents, getEventMetrics } from 'lib/queries';
+import { badRequest, methodNotAllowed, ok, unauthorized } from 'lib/response';
 import { allowQuery } from 'lib/auth';
 import { useCors } from 'lib/middleware';
 
@@ -14,13 +14,20 @@ export default async (req, res) => {
       return unauthorized(res);
     }
 
-    const { id, start_at, end_at, unit, tz, url, event_type } = req.query;
+    const { id, start_at, end_at, unit, tz, url, event_type, download } = req.query;
+
+    const websiteId = +id;
+
+    if (download) {
+      const events = await getAllEvents([websiteId]);
+
+      return ok(res, events);
+    }
 
     if (!moment.tz.zone(tz) || !unitTypes.includes(unit)) {
       return badRequest(res);
     }
 
-    const websiteId = +id;
     const startDate = new Date(+start_at);
     const endDate = new Date(+end_at);
 
