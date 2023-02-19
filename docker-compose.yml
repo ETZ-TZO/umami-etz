@@ -4,11 +4,13 @@ services:
   umami:
     image: ghcr.io/mikecao/umami:postgresql-latest
     ports:
-      - "3000:3000"
+      - "8082:3000"
     environment:
       DATABASE_URL: postgresql://umami:umami@db:5432/umami
       DATABASE_TYPE: postgresql
       HASH_SALT: replace-me-with-a-random-string
+    env_file:
+      - .env
     depends_on:
       - db
     restart: always
@@ -21,6 +23,8 @@ services:
     volumes:
       - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
       - umami-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     restart: always
 volumes:
   umami-db-data:
