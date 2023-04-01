@@ -8,6 +8,7 @@ RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
+RUN apk add --no-cache openssl1.1-compat
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -17,8 +18,6 @@ ARG DATABASE_TYPE
 ARG BASE_PATH
 ARG DISABLE_LOGIN
 
-ENV DATABASE_URL $DATABASE_URL
-ENV DATABASE_TYPE $DATABASE_TYPE
 ENV BASE_PATH $BASE_PATH
 ENV DISABLE_LOGIN $DISABLE_LOGIN
 
