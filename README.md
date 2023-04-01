@@ -1,6 +1,7 @@
 # umami
 
-Umami is a simple, fast, privacy-focused alternative to Google Analytics.
+Umami is a simple, fast, privacy-focused alternative to Google Analytics.  
+This repository is a fork of Umami, used for analytics on their dashboard.
 
 ## Getting started
 
@@ -22,7 +23,7 @@ npm install -g yarn
 ### Get the source code and install packages
 
 ```
-git clone https://github.com/mikecao/umami.git
+git clone https://github.com/ETZ-TZO/umami-etz.git
 cd umami
 yarn install
 ```
@@ -32,7 +33,13 @@ yarn install
 Create an `.env` file with the following
 
 ```
-DATABASE_URL=(connection url)
+DATABASE_URL={DB_TYPE}://{USER}:{PASS}@{IP}/{DB_NAME}
+DATABASE_TYPE={DB_TYPE}
+POSTGRES_DB={DB_NAME}
+POSTGRES_USER={USER}
+POSTGRES_PASSWORD={PASS}
+HASH_SALT={RANDOM_STRING}
+
 ```
 
 The connection url is in the following format:
@@ -74,16 +81,6 @@ To build the umami container and start up a Postgres database, run:
 docker-compose up
 ```
 
-Alternatively, to pull just the Umami Docker image with PostgreSQL support:
-```bash
-docker pull ghcr.io/mikecao/umami:postgresql-latest
-```
-
-Or with MySQL support:
-```bash
-docker pull ghcr.io/mikecao/umami:mysql-latest
-```
-
 ## Getting updates
 
 To get the latest features, simply do a pull, install any new dependencies, and rebuild:
@@ -93,13 +90,6 @@ git pull
 yarn install
 yarn build
 yarn update-db
-```
-
-To update the Docker image, simply pull the new images and rebuild:
-
-```bash
-docker-compose pull
-docker-compose up --force-recreate
 ```
 
 ## License
