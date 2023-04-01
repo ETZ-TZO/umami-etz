@@ -4,12 +4,11 @@ services:
   umami:
     build: '.'
     ports:
-      - "8080:3000"
+      - "8082:3000"
     env_file:
       - .env
     depends_on:
       - db
-    restart: always
   db:
     image: postgres:12-alpine
     env_file:
@@ -17,6 +16,7 @@ services:
     volumes:
       - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
       - umami-db-data:/var/lib/postgresql/data
-    restart: always
+    ports:
+      - "5432:5432"
 volumes:
   umami-db-data:
