@@ -89,6 +89,8 @@ export default function WebsiteHeader({ websiteId, title, domain, showLink = fal
 }
 
 function objectToCSV(data) {
+  data = sortData(data);
+
   const csvRows = [];
 
   const headers = Object.keys(data[0]);
@@ -102,4 +104,14 @@ function objectToCSV(data) {
     csvRows.push(values.join(','));
   }
   return csvRows.join('\n');
+}
+
+/**
+ * Sort the passed data by patient id (url) and then by date
+ * @param data The data that needs to be sorted
+ * @returns {*} The sorted data
+ */
+function sortData(data) {
+  data.sort((a, b) => (a.url > b.url ? 1 : a.url === b.url ? (a.date > b.date ? -1 : 1) : -1));
+  return data;
 }
