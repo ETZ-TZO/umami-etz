@@ -9,7 +9,6 @@ services:
       - .env
     depends_on:
       - db
-    restart: always
   db:
     image: postgres:12-alpine
     env_file:
@@ -19,6 +18,5 @@ services:
       - umami-db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    restart: always
 volumes:
   umami-db-data:
