@@ -1,6 +1,7 @@
 .git
 docker-compose.yml
 umami.Dockerfile
+nginx.Dockerfile
 .gitignore
 .DS_Store
 node_modules
