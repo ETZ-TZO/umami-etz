@@ -1,11 +1,11 @@
 # umami
 
 Umami is a simple, fast, privacy-focused alternative to Google Analytics.  
-This repository is a fork of Umami, used for analytics on their dashboard.
+This repository is a fork of Umami, used for analytics on the TZO dashboard.
 
 ## Getting started
 
-A detailed getting started guide can be found at [https://umami.is/docs/](https://umami.is/docs/)
+A detailed getting started guide on the original codebase can be found at [https://umami.is/docs/](https://umami.is/docs/)
 
 ## Installing from source
 
@@ -30,25 +30,29 @@ yarn install
 
 ### Configure umami
 
-Create an `.env` file with the following
+Create an `.env` file with the following keys, replace the {} values with the correct information.
 
 ```
-DATABASE_URL={DB_TYPE}://{USER}:{PASS}@{IP}/{DB_NAME}
-DATABASE_TYPE={DB_TYPE}
-POSTGRES_DB={DB_NAME}
-POSTGRES_USER={USER}
-POSTGRES_PASSWORD={PASS}
-HASH_SALT={RANDOM_STRING}
+DATABASE_URL={DB type}://{user}:{password}@{ip}/{DB name}
+DATABASE_TYPE={DB type}
+POSTGRES_DB={DB name}
+POSTGRES_USER={user}
+POSTGRES_PASSWORD={password}
+HASH_SALT={a random string}
 
+SERVER_NAME={The server's hostname}
+SSL_KEY={The file name of the SSL key in /certs}
+SSL_CERT={The file name of the SSL cert in /certs}
 ```
 
-The connection url is in the following format:
+Examples of what the connection URL might look like:
 ```
 postgresql://username:mypassword@localhost:5432/mydb
 
 mysql://username:mypassword@localhost:3306/mydb
 ```
 
+## Local run
 ### Build the application
 
 ```bash
@@ -69,27 +73,12 @@ This will also create a login account with username **admin** and password **uma
 yarn start
 ```
 
-By default this will launch the application on `http://localhost:3000`. You will need to either
-[proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) requests from your web server
-or change the [port](https://nextjs.org/docs/api-reference/cli#production) to serve the application directly.
-
-## Installing with Docker
+## Docker setup
 
 To build the umami container and start up a Postgres database, run:
 
 ```bash
 docker-compose up
-```
-
-## Getting updates
-
-To get the latest features, simply do a pull, install any new dependencies, and rebuild:
-
-```bash
-git pull
-yarn install
-yarn build
-yarn update-db
 ```
 
 ## License
