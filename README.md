@@ -42,7 +42,7 @@ HASH_SALT={a random string}
 
 SERVER_NAME={The server's hostname}
 SSL_KEY={The file name of the SSL key in /certs}
-SSL_CERT={The file name of the SSL cert in /certs}
+SSL_CRT={The file name of the SSL cert in /certs}
 ```
 
 Examples of what the connection URL might look like:
