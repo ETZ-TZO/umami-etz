@@ -111,7 +111,7 @@ function objectToCSV(data) {
 
     if (
       values[1].toLowerCase().startsWith('/login') ||
-      values[1].toLowerCase().startsWith['/oauth']
+      values[1].toLowerCase().startsWith('/oauth')
     )
       continue;
 
