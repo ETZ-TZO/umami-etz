@@ -106,8 +106,11 @@ function objectToCSV(data) {
         return `${escaped}`;
       })
       .filter(e => {
-        return e !== 'undefined' && !e.startsWith('/login') && !e.startsWith('/oauth');
+        return e !== 'undefined';
       });
+
+    if (values['url'].startsWith('/login') || values['url'].startsWith['/oauth']) continue;
+
     csvRows.push(values.join(','));
   }
   return csvRows.join('\n');
