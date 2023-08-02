@@ -101,11 +101,12 @@ function objectToCSV(data) {
   for (const row of data) {
     let values = headers
       .map(header => {
-        const escaped = ('' + row[header]).replace(/"/g, '\\"');
-        return `"${escaped}"`;
+        const val = row[header];
+        const escaped = ('' + val).replace(/"/g, '\\"');
+        return `${escaped}`;
       })
       .filter(e => {
-        return e !== '"undefined"';
+        return e !== 'undefined' && !e.startsWith('/login') && !e.startsWith('/oauth');
       });
     csvRows.push(values.join(','));
   }
