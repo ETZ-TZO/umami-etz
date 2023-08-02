@@ -93,14 +93,20 @@ function objectToCSV(data) {
 
   const csvRows = [];
 
-  const headers = Object.keys(data[0]);
+  const headers = Object.keys(data[0]).filter(el => {
+    return ['created_at', 'url', 'event_type', 'event_value'].includes(el);
+  });
   csvRows.push(headers.join(','));
 
   for (const row of data) {
-    const values = headers.map(header => {
-      const escaped = ('' + row[header]).replace(/"/g, '\\"');
-      return `"${escaped}"`;
-    });
+    let values = headers
+      .map(header => {
+        const escaped = ('' + row[header]).replace(/"/g, '\\"');
+        return `"${escaped}"`;
+      })
+      .filter(e => {
+        return e !== '"undefined"';
+      });
     csvRows.push(values.join(','));
   }
   return csvRows.join('\n');
