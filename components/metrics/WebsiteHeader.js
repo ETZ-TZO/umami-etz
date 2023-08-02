@@ -109,7 +109,11 @@ function objectToCSV(data) {
         return e !== 'undefined';
       });
 
-    if (values[1].startsWith('/login') || values[1].startsWith['/oauth']) continue;
+    if (
+      values[1].toLowerCase().startsWith('/login') ||
+      values[1].toLowerCase().startsWith['/oauth']
+    )
+      continue;
 
     csvRows.push(values.join(','));
   }
@@ -122,8 +126,6 @@ function objectToCSV(data) {
  * @returns {*} The sorted data
  */
 function sortData(data) {
-  data.sort((a, b) =>
-    a.url > b.url ? 1 : a.url === b.url ? (a.created_at > b.created_at ? -1 : 1) : -1,
-  );
+  data.sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
   return data;
 }
