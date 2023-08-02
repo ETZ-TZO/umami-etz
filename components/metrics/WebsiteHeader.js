@@ -109,7 +109,7 @@ function objectToCSV(data) {
         return e !== 'undefined';
       });
 
-    if (values['url'].startsWith('/login') || values['url'].startsWith['/oauth']) continue;
+    if (values[1].startsWith('/login') || values[1].startsWith['/oauth']) continue;
 
     csvRows.push(values.join(','));
   }
