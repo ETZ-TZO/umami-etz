@@ -43,6 +43,10 @@ HASH_SALT={a random string}
 SERVER_NAME={The server's hostname}
 SSL_KEY={The file name of the SSL key in /certs}
 SSL_CRT={The file name of the SSL cert in /certs}
+
+## Only if the app is hosted on a server with proxy
+HTTP_PROXY_URL={The proxy URL}
+HTTP_PROXY_PORT={The proxy port}
 ```
 
 Examples of what the connection URL might look like:
