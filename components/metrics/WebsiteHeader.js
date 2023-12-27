@@ -93,9 +93,7 @@ function objectToCSV(data) {
 
   const csvRows = [];
 
-  const headers = Object.keys(data[0]).filter(el => {
-    return ['created_at', 'url', 'event_type', 'event_value'].includes(el);
-  });
+  const headers = ['created_at', 'url', 'event_type', 'event_value'];
 
   console.log(headers);
   csvRows.push(headers.join(','));
