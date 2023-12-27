@@ -2,6 +2,7 @@
 version: '3'
 services:
   umami:
+    container_name: etz-umami
     build:
       dockerfile: umami.Dockerfile
     env_file:
@@ -10,6 +11,7 @@ services:
       - db
 
   db:
+    container_name: etz-umami-db
     image: postgres:12-alpine
     env_file:
       - .env
@@ -18,7 +20,7 @@ services:
       - umami-db-data:/var/lib/postgresql/data
 
   nginx:
-    container_name: Nginx
+    container_name: etz-umami-nginx
     volumes:
       - ./env-variables.conf:/etc/nginx/templates/10-variables.conf.template:ro
     build:
