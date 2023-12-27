@@ -95,13 +95,20 @@ function objectToCSV(data) {
 
   const headers = ['created_at', 'url', 'event_type', 'event_value'];
 
-  console.log(headers);
   csvRows.push(headers.join(','));
 
   for (const row of data) {
     let values = headers
       .map(header => {
-        const val = row[header];
+        let val = row[header];
+
+        if (header === 'created_at') {
+          let clientTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          let localDate = new Date(val).toLocaleString('en-US', { timeZone: clientTimezone });
+          let localDateString = new Date(localDate).toLocaleString();
+          val = localDateString.replace(',', '');
+        }
+
         const escaped = ('' + val).replace(/"/g, '\\"');
         return `${escaped}`;
       })
