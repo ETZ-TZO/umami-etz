@@ -23,6 +23,7 @@ services:
 
   nginx:
     container_name: etz-umami-nginx
+    user: root
     volumes:
       - ./env-variables.conf:/etc/nginx/templates/10-variables.conf.template:ro
     build:
