@@ -1,5 +1,5 @@
 import moment from 'moment-timezone';
-import { getAllEvents, getEventMetrics } from 'lib/queries';
+import { getAllEventsAndViews, getEventMetrics } from 'lib/queries';
 import { badRequest, methodNotAllowed, ok, unauthorized } from 'lib/response';
 import { allowQuery } from 'lib/auth';
 import { useCors } from 'lib/middleware';
@@ -19,7 +19,7 @@ export default async (req, res) => {
     const websiteId = +id;
 
     if (download) {
-      const events = await getAllEvents([websiteId]);
+      const events = await getAllEventsAndViews([websiteId]);
 
       return ok(res, events);
     }

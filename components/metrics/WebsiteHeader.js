@@ -93,14 +93,34 @@ function objectToCSV(data) {
 
   const csvRows = [];
 
-  const headers = Object.keys(data[0]);
+  const headers = ['created_at', 'url', 'event_type', 'event_value'];
+
   csvRows.push(headers.join(','));
 
   for (const row of data) {
-    const values = headers.map(header => {
-      const escaped = ('' + row[header]).replace(/"/g, '\\"');
-      return `"${escaped}"`;
-    });
+    let values = headers
+      .map(header => {
+        let val = row[header];
+
+        if (header === 'created_at') {
+          let clientTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          let localDate = new Date(val).toLocaleString('en-US', { timeZone: clientTimezone });
+          let localDateString = new Date(localDate).toLocaleString();
+          val = localDateString.replace(',', '');
+        }
+
+        const escaped = ('' + val).replace(/"/g, '\\"');
+        return `${escaped}`;
+      })
+      .filter(e => {
+        return e !== 'undefined';
+      });
+
+    const urlPath = values[1].toLowerCase();
+
+    if (urlPath.startsWith('/login') || urlPath.startsWith('/oauth') || urlPath.includes('?uit'))
+      continue;
+
     csvRows.push(values.join(','));
   }
   return csvRows.join('\n');
@@ -112,6 +132,6 @@ function objectToCSV(data) {
  * @returns {*} The sorted data
  */
 function sortData(data) {
-  data.sort((a, b) => (a.url > b.url ? 1 : a.url === b.url ? (a.date > b.date ? -1 : 1) : -1));
+  data.sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
   return data;
 }
