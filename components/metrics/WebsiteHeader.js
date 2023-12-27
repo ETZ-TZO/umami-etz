@@ -111,10 +111,9 @@ function objectToCSV(data) {
         return e !== 'undefined';
       });
 
-    if (
-      values[1].toLowerCase().startsWith('/login') ||
-      values[1].toLowerCase().startsWith('/oauth')
-    )
+    const urlPath = values[1].toLowerCase();
+
+    if (urlPath.startsWith('/login') || urlPath.startsWith('/oauth') || urlPath.includes('?uit'))
       continue;
 
     csvRows.push(values.join(','));
