@@ -97,6 +97,8 @@ function objectToCSV(data) {
 
   csvRows.push(headers.join(','));
 
+  let filterNext = false;
+
   for (const row of data) {
     let values = headers
       .map(header => {
@@ -117,6 +119,15 @@ function objectToCSV(data) {
       });
 
     const urlPath = values[1].toLowerCase();
+    if (urlPath.includes('?uit')) {
+      filterNext = true;
+      continue;
+    } else if (filterNext) {
+      filterNext = false;
+
+      // Only skip this data entry if it's a page-open action
+      if (values[2].includes('Pagina geopend')) continue;
+    }
 
     if (urlPath.startsWith('/login') || urlPath.startsWith('/oauth') || urlPath.includes('?uit'))
       continue;
