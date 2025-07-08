@@ -43,6 +43,8 @@ HASH_SALT={a random string}
 SERVER_NAME={The server's hostname}
 SSL_KEY={The file name of the SSL key in /certs}
 SSL_CRT={The file name of the SSL cert in /certs}
+
+EXTRA_CERT_PATH={Any extra certificates that need to be added to Node's build process}
 ```
 
 Examples of what the connection URL might look like:
