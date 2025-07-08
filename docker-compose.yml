@@ -2,7 +2,7 @@
 version: '3'
 services:
   umami:
-    container_name: etz-umami
+    container_name: umami
     ports:
       - "3000:3000"
     build:
@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
 
   db:
-    container_name: etz-umami-db
+    container_name: umami-db
     ports:
       - "5432:5432"
     image: postgres:12-alpine
@@ -27,7 +27,7 @@ services:
 
 
   nginx:
-    container_name: etz-umami-nginx
+    container_name: umami-nginx
     user: root
     volumes:
       - ./env-variables.conf:/etc/nginx/templates/10-variables.conf.template:ro

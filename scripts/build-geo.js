@@ -1,12 +1,12 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const http = require('http');
+const https = require('https');
 const zlib = require('zlib');
 const tar = require('tar');
 
 let url =
-  'http://raw.githubusercontent.com/GitSquared/node-geolite2-redist/master/redist/GeoLite2-Country.tar.gz';
+  'https://raw.githubusercontent.com/GitSquared/node-geolite2-redist/master/redist/GeoLite2-Country.tar.gz';
 
 if (process.env.MAXMIND_LICENSE_KEY) {
   url =
@@ -20,24 +20,14 @@ if (!fs.existsSync(dest)) {
   fs.mkdirSync(dest);
 }
 
-const options = {
-  host: process.env.HTTP_PROXY_URL,
-  port: process.env.HTTP_PROXY_PORT,
-  path: url,
-  headers: {
-    Host: process.env.HTTP_PROXY_URL,
-    'Accept-Encoding': 'gzip',
-  },
-};
-
-const download = () =>
+const download = url =>
   new Promise(resolve => {
-    http.get(options, res => {
-      resolve(res.pipe(zlib.createGunzip()).pipe(tar.t()));
+    https.get(url, res => {
+      resolve(res.pipe(zlib.createGunzip({})).pipe(tar.t()));
     });
   });
 
-download().then(
+download(url).then(
   res =>
     new Promise((resolve, reject) => {
       res.on('entry', entry => {
