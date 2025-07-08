@@ -23,7 +23,7 @@ ENV DISABLE_LOGIN $DISABLE_LOGIN
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-COPY extra-certificate.crt .
+COPY ./extra-certificate.crt .
 
 ENV NODE_EXTRA_CA_CERTS extra-certificate.crt
 
