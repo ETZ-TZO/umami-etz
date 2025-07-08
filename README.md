@@ -84,6 +84,10 @@ To build the umami container and start up a Postgres database, run:
 docker-compose up
 ```
 
+## Extra certificate
+
+If needed, you can provide an extra certificate to the Node build process by placing it in the root directory, with the name `extra-certificate.crt`.
+
 ## License
 
 MIT
