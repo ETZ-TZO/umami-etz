@@ -43,8 +43,6 @@ HASH_SALT={a random string}
 SERVER_NAME={The server's hostname}
 SSL_KEY={The file name of the SSL key in /certs}
 SSL_CRT={The file name of the SSL cert in /certs}
-
-EXTRA_CERT_PATH={Any extra certificates that need to be added to Node's build process}
 ```
 
 Examples of what the connection URL might look like:
@@ -83,6 +81,10 @@ To build the umami container and start up a Postgres database, run:
 ```bash
 docker-compose up
 ```
+
+## Extra certificate
+
+If needed, you can provide an extra certificate to the Node build process by placing it in the root directory, with the name `extra-certificate.crt`.
 
 ## License
 
