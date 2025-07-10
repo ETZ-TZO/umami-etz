@@ -5,6 +5,11 @@ FROM node:16-slim AS deps
 RUN apt-get update && apt-get install -y libc6 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+COPY ./extra-certificate.crt* .
+
+ENV NODE_EXTRA_CA_CERTS=extra-certificate.crt
+
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
@@ -48,6 +53,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+COPY ./extra-certificate.crt* .
+
+ENV NODE_EXTRA_CA_CERTS=extra-certificate.crt
 
 RUN apt-get update && apt-get install -y openssl libssl1.1
 
